@@ -27,7 +27,7 @@ optimal_k = optimal_k +1
 print optimal_k
 print error
 
-## use knn 
+# use knn 
 X_train, X_test, y_train, y_test = model_selection.train_test_split(X,y, test_size = 0.1)
 knn = neighbors.KNeighborsClassifier(n_neighbors= optimal_k)
 knn.fit(X_train, y_train)
