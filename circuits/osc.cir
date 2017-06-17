@@ -1,0 +1,52 @@
+** Project2wFilter **
+**INCORRECT OP AMPS IN USE**
+.include lm318.cir
+.include tlv247.cir
+.include ad8067.cir
+
+x1 0 3 VCC VEE 5 ad8067
+
+
+rR7 4 0 500 
+
+
+rR6 vout1 4 3532.3 
+
+
+VCCVCC  VCC 0 dc 15
+
+
+VEEVEE  VEE 0 dc -15
+
+
+x2 Vout 4 VCC VEE vout1 ad8067
+
+cC3 Vout 0 1.94e-009
+
+
+cC2 2 0 1.94e-009
+
+
+cC1 1 0 1.94e-009
+
+
+rR5 2 Vout 80 
+
+
+rR3 1 2 80 
+
+
+rR1 5 1 80 
+
+
+rR4 5 3 232000 
+
+
+rR2 3 Vout 10000 
+
+
+.control
+tran 1m 1; transient analysis
+.endc
+.end
+
