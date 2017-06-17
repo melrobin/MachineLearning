@@ -8,14 +8,14 @@ label = raw_data[:,-1]
 
 print data.shape, label.shape			#shape of the matrices
 
-classifier = svm.SVC(kernel = 'rbf' )		#defining the classifier. Kernel= 'rbf', gamma= 0.083
+clf2 = svm.SVC(kernel = 'rbf' )		#defining the classifier. Kernel= 'rbf', gamma= 0.083
 
 X = data					#data for training
 y = label
 
-classifier.fit(X, y)				#fitting data with model
+clf2.fit(X, y)				#fitting data with model
 
-results = classifier.predict(X)			#prediction of training data
+results = clf2.predict(X)			#prediction of training data
 
 train_accuracy = metrics.accuracy_score(y, results)
 print "The training accuracy is", 100*train_accuracy,'%'
