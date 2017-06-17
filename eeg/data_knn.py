@@ -8,13 +8,13 @@ label = raw_data[:,-1]
 
 print data.shape, label.shape				#shapes of the matrices
 
-knn = neighbors.KNeighborsClassifier(n_neighbors= 2)	#nearest two neighbors
+clf1 = neighbors.KNeighborsClassifier(n_neighbors= 2)	#nearest two neighbors
 
 X = data						#data for training
 y = label
 
-knn.fit(X, y)						#fitting the data with the model
-result = knn.predict(X)					#prediction with training data
+clf1.fit(X, y)						#fitting the data with the model
+result = clf1.predict(X)					#prediction with training data
 
 training_accuracy = metrics.accuracy_score(y, result)	#training accuracy
 print "The training accuracy is",100*training_accuracy,'%'
