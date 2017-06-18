@@ -8,14 +8,14 @@ label = raw_data[:,-1]
 X = data 				#data for testing
 y = label 
 
-def knn(X,y):
-	clf1 = neighbors.KNeighborsClassifier( n_neighbors = 2)
+def knn(X,y):								#k-NN classifier as a function
+	clf1 = neighbors.KNeighborsClassifier( n_neighbors = 2)		#returns the predicted label values
 	clf1.fit(X,y)
 	results = clf1.predict(X)
 	return results;
 
-def vectors(X, y):
-	clf2 = svm.SVC()
+def vectors(X, y):							#SVM classifier as a function
+	clf2 = svm.SVC(gamma = "auto")					#returns the predicted label values
 	clf2.fit(X,y)
 	results = clf2.predict(X)
 	return results;
