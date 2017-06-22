@@ -15,7 +15,7 @@ def knn(X,y):								#k-NN classifier as a function
 	return results;
 
 def vectors(X, y):							#SVM classifier as a function
-	clf2 = svm.SVC(gamma = "auto")					#returns the predicted label values
+	clf2 = svm.SVC(gamma = 5)					#returns the predicted label values
 	clf2.fit(X,y)
 	results = clf2.predict(X)
 	return results;
