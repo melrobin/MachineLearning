@@ -9,7 +9,8 @@ y = raw_data[:,-1]
 #print data.shape, label.shape			#shapes of the matrices
 
 clf1 = neighbors.KNeighborsClassifier(n_neighbors= 2)	#nearest two neighbors
-clf2 = svm.SVC(kernel = 'rbf' )		
+#clf2 = svm.SVC(kernel = 'rbf' )		
+clf2 = svm.SVC(gamma=5 )		
 #defining the classifier. Kernel= 'rbf', gamma= 0.083
 clf1.fit(X, y)	#fitting the data with the model
 clf2.fit(X, y)	#fitting data with model
