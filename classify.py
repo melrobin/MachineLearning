@@ -16,7 +16,7 @@ svm_scores1= []
 trees_scores1 = []
 
 #Spliting the data into training and testing data
-kf = model_selection.KFold(n_splits=2 )
+kf = model_selection.KFold(n_splits=5 )
 for train , test in kf.split(X):
 	clf1.fit(X[train],y[train])
 	clf2.fit(X[train],y[train])
@@ -51,9 +51,9 @@ print "\nUsing Leave One Out:\n","k-nn score:", 100*np.mean(knn_scores2)
 print "SVM score:",100*np.mean(svm_scores2)
 print "Random forest score:",100*np.mean(trees_scores2)
 
-knn_scores3 = model_selection.cross_val_score(clf1, X, y, cv=2)
-svm_scores3 = model_selection.cross_val_score(clf2, X, y, cv=2)
-trees_scores3 = model_selection.cross_val_score(clf3, X, y, cv=2)
+knn_scores3 = model_selection.cross_val_score(clf1, X, y, cv=5)
+svm_scores3 = model_selection.cross_val_score(clf2, X, y, cv=5)
+trees_scores3 = model_selection.cross_val_score(clf3, X, y, cv=5)
 print "\nUsing CV metrics:\n","k-NN score:", 100*np.mean(knn_scores3)
 print "SVM score:",100*np.mean(svm_scores3)
 print "Random Forest score:",100*np.mean(trees_scores3)
