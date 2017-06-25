@@ -15,8 +15,8 @@ knn_scores1 = []
 svm_scores1= []
 trees_scores1 = []
 
-#Spliting the data into training and testing data
-kf = model_selection.KFold(n_splits=5 )
+#Spliting the data into training and testing data using k-Fold
+kf = model_selection.KFold(n_splits=5 )					#n_splits=20 yields the best accuracy
 for train , test in kf.split(X):
 	clf1.fit(X[train],y[train])
 	clf2.fit(X[train],y[train])
@@ -36,6 +36,7 @@ knn_scores2 = []
 svm_scores2 = []
 trees_scores2 = []
 
+#Spliting data using Leave One Out cross validation
 loo = model_selection.LeaveOneOut()
 for train, test in loo.split(X):
 	clf1.fit(X[train],y[train])
@@ -51,9 +52,10 @@ print "\nUsing Leave One Out:\n","k-nn score:", 100*np.mean(knn_scores2)
 print "SVM score:",100*np.mean(svm_scores2)
 print "Random forest score:",100*np.mean(trees_scores2)
 
-knn_scores3 = model_selection.cross_val_score(clf1, X, y, cv=5)
-svm_scores3 = model_selection.cross_val_score(clf2, X, y, cv=5)
-trees_scores3 = model_selection.cross_val_score(clf3, X, y, cv=5)
+#Using cross validation score for the data
+knn_scores3 = model_selection.cross_val_score(clf1, X, y, cv=5)			#cv=20 yields the best accuracy
+svm_scores3 = model_selection.cross_val_score(clf2, X, y, cv=5)			#cv=15 yields the best accuracy
+trees_scores3 = model_selection.cross_val_score(clf3, X, y, cv=5)		#cv=15 yileds the best accuracy
 print "\nUsing CV metrics:\n","k-NN score:", 100*np.mean(knn_scores3)
 print "SVM score:",100*np.mean(svm_scores3)
 print "Random Forest score:",100*np.mean(trees_scores3)
