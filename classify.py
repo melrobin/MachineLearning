@@ -1,14 +1,14 @@
 import numpy as np
 from sklearn import ensemble, neighbors, svm, metrics, model_selection
 
-raw_data = np.genfromtxt('plrx.txt')			#reading data from txt file
+raw_data = np.genfromtxt('plrx.txt')					#reading data from txt file
 
-X= raw_data[:,:12]					#splicing the raw data
+X= raw_data[:,:12]							#splicing the raw data
 y = raw_data[:,-1]
 
-clf1 = neighbors.KNeighborsClassifier(n_neighbors= 2)	#k-NN classifier
-clf2 = svm.SVC(gamma = 5)				#SVM classifier
-clf3 = ensemble.RandomForestClassifier(n_estimators=10)	#Random Forest classifier
+clf1 = neighbors.KNeighborsClassifier(n_neighbors= 2)			#k-NN classifier
+clf2 = svm.SVC(gamma = 5)						#SVM classifier
+clf3 = ensemble.RandomForestClassifier(n_estimators=30, max_depth=3)	#Random Forest classifier
 
 #empty arrays to hold classifier accuracy scores
 knn_scores1 = []
@@ -57,12 +57,3 @@ trees_scores3 = model_selection.cross_val_score(clf3, X, y, cv=2)
 print "\nUsing CV metrics:\n","k-NN score:", 100*np.mean(knn_scores3)
 print "SVM score:",100*np.mean(svm_scores3)
 print "Random Forest score:",100*np.mean(trees_scores3)
-
-
-
-
-
-
-
-#c_matrix_knn = metrics.confusion_matrix(y, result_knn)		
-#c_matrix_svm = metrics.confusion_matrix(y, result_svm)		
