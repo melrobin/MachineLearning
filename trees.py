@@ -26,5 +26,7 @@ for train, test in loo.split(X):
 	clf.fit(X[train], y[train])
 	acc = clf.score(X[test], y[test])
 	loo_scores.append(acc)
-
+fpr, tpr, thresholds = metrics.roc_curve(y ,loo_scores, pos_label= 2)
 print 100*np.mean(loo_scores)
+print np.shape(loo_scores), np.shape(y)
+print fpr, tpr, thresholds
