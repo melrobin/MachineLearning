@@ -33,7 +33,8 @@ for train , test in kf.split(X):
 	svm_scores1.append(acc_svm1)
 	trees_scores1.append(acc_trees1)
 	gauss_scores1.append(acc_gauss1)
-
+	cf = metrics.confusion_matrix(y[test], clf2.predict(X[test]))
+print cf
 print "\nUsing k-fold:\n", "k-NN score: ",100*np.mean(knn_scores1)
 print"SVM score: ", 100*np.mean(svm_scores1)
 print "Random Forest score: ", 100*np.mean(trees_scores1)
