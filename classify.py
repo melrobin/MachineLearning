@@ -1,6 +1,7 @@
 import numpy as np
 from sklearn import ensemble, neighbors, svm, metrics, model_selection, gaussian_process
 from sklearn.gaussian_process.kernels import RBF
+import matplotlib.pyplot as plt
 
 raw_data = np.genfromtxt('plrx.txt')					#reading data from txt file
 
@@ -12,7 +13,22 @@ clf2 = svm.SVC(gamma = 5)						#SVM classifier
 clf3 = ensemble.RandomForestClassifier(n_estimators=30, max_depth=3)	#Random Forest classifier
 clf4 = gaussian_process.GaussianProcessClassifier(1*RBF([1]))		#Gaussian Process classifier
 
-#empty arrays to hold classifier accuracy scores
+#Function for ROC curve
+probs=[]
+def plot_roc(tpr,fpr,thresholds):
+   fig = plt.gcf()
+   fig.set_size_inches(5.5, 4.5)
+   plt.plot(fpr, tpr,label='correct')
+   plt.plot([0,1],[0,1],'r--'),
+   plt.title('ROC curve for Caffe-based classifier')
+   plt.ylabel('True Positive Rate')
+   plt.xlabel('False Positive Rate')
+   plt.legend(loc='best')
+   plt.grid()
+#   plt.savefig('roc_plot.pgf')
+   plt.show()
+
+#arrays for K-fold scores
 knn_scores1 = []
 svm_scores1= []
 trees_scores1 = []
@@ -40,6 +56,7 @@ print"SVM score: ", 100*np.mean(svm_scores1)
 print "Random Forest score: ", 100*np.mean(trees_scores1)
 print "Gaussian score:", 100*np.mean(gauss_scores1)
 
+#Scores for Leave One Out CV
 knn_scores2 = []
 svm_scores2 = []
 trees_scores2 = []
@@ -60,6 +77,8 @@ for train, test in loo.split(X):
 	svm_scores2.append(acc_svm2)
 	trees_scores2.append(acc_trees2)
 	gauss_scores2.append(acc_gauss2)
+	temp_pred= clf2.predict_proba(X[test])
+	probs.append(temp_pred[0,0])
 
 print "\nUsing Leave One Out:\n","k-nn score:", 100*np.mean(knn_scores2)
 print "SVM score:",100*np.mean(svm_scores2)
@@ -76,5 +95,6 @@ print "SVM score:",100*np.mean(svm_scores3)
 print "Random Forest score:",100*np.mean(trees_scores3)
 print "Gaussian score:", 100*np.mean(gauss_scores3)
 
-
-
+fpr, tpr, thresholds = metrics.roc_curve(y,probs, pos_label=2)
+plot_roc(tpr,fpr,thresholds)
+print "ACU: ", metrics.auc(fpr,tpr)
